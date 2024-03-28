@@ -1,34 +1,17 @@
 pipeline {
     agent any // window agent, Jenkins-laravel (other machine)
-
     stages {
         stage('Fetch from GitHub') { //build steps
             steps {
                 echo 'Fetching for GitHub'
-                git branch: 'TP03' url: 'https://github.com/teangsreyroth08/jenkins.git'
+                git branch: 'TP03', url: 'https://github.com/teangsreyroth08/jenkins.git'
             }
         }
-        stage('Composer install') { 
-            steps {
-                sh 'Composer install'
-            }
-        }
-        stage('Copy .env') { 
-            steps {
-                sh 'cp .env.example .env'
-            }
-        }
-        stage('Add key') { 
-            steps {
-                echo 'running code ...'
-                sh 'php artisan key:generate'
-            }
-        }
-        stage('npm') { 
-            steps {
+        stage('Build using Tools'){
+            steps{
                 echo 'Compiling code ...'
-                sh 'npm install'
-                sh 'npm run build'
+                sh 'cp .env.example .env'
+                sh 'composer install && php artisan key:generate && npm install && npm run build'
             }
         }
         stage('Test the app'){
@@ -38,5 +21,7 @@ pipeline {
                 sh 'php artisan test'
             }
         }
+        
     }
+    
 }

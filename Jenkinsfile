@@ -4,7 +4,7 @@ pipeline {
         stage('Fetch from GitHub') { //build steps
             steps {
                 echo 'Fetching for GitHub'
-                git branch: 'TP03', url: 'https://github.com/teangsreyroth08/jenkins.git'
+                git branch: 'JenkinsFinal', url: 'https://github.com/teangsreyroth08/jenkins.git'
             }
         }
         stage('Build using Tools'){
